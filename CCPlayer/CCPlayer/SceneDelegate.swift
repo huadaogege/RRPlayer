@@ -18,8 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         let VC = ViewController()
-        let navigationC = UINavigationController(rootViewController: VC)
-        self.window?.rootViewController = navigationC
+        self.window?.rootViewController = VC
         guard let _ = (scene as? UIWindowScene) else { return }
     }
 

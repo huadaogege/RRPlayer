@@ -35,34 +35,34 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return dataItems.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return dataItems.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "setting_cell_identifier"
-        var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
+        var cell:SettingCell!
+        cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? SettingCell
         if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: identifier)
+            cell = SettingCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: identifier)
         }
         cell?.backgroundColor = UIColor.yellow
-        cell?.textLabel?.text = dataItems[indexPath.row]
-//        cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
+        cell.setTitle(title: self.dataItems[indexPath.row])
+        cell?.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if indexPath.row == 0 {
+            let privateWorkspaceVC = PrivateSettingViewController()
+            self.navigationController?.pushViewController(privateWorkspaceVC, animated: true)
+        }
     }
 }

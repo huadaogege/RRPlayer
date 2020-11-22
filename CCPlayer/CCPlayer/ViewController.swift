@@ -15,6 +15,11 @@ class ViewController: UIViewController {
         // 初始化导航条
         initNavPerf()
         
+        let mainVC = MainViewController()
+        
+        self.addChild(mainVC)
+        self.view.addSubview(mainVC.view)
+        
     }
     
     func initNavPerf() -> Void {
@@ -22,7 +27,6 @@ class ViewController: UIViewController {
         
         let img = UIImage(named: "nav_CloseBtn")        
         let rightItem1 = UIBarButtonItem(image: img, style: UIBarButtonItem.Style.plain, target: self, action: #selector(rightItem1Selector))
-        
         
         self.navigationItem.leftBarButtonItem = leftItem
         self.navigationItem.rightBarButtonItem = rightItem1
