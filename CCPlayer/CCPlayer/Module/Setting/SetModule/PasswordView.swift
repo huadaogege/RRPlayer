@@ -65,9 +65,6 @@ class PasswordView: UIView, UITextFieldDelegate {
     }()
     
     func updateDots() {
-//        if password.count > 6 {
-//            return
-//        }
         NSLog("password:  %@", password)
         for index in 0 ... 5 {
             let image = dotImages[index]

@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 struct PlayModel {
     var name : String
     var size : String
     var time : String
     var path : String
+    var icon : UIImage
 }

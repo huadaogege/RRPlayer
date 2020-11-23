@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class PlayListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -21,13 +22,19 @@ class PlayListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func testData() -> Array<PlayModel> {
+        let docPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last! as String
+        let filePath = docPath + "/123.mp4"
+        
         let nameItems = ["黑客帝国", "007大战皇家赌场", "加勒比海盗", "碟中谍", "盗梦空间", "无耻混蛋"]
         let timeItems = ["01:30:29", "01:23:28", "02:10:29", "00:30:20", "04:30:29", "00:10:09"]
         let sizeItems = ["200MB", "150MB", "1.3GB", "2780MB", "345MB", "176MB", ]
-        let pathItems = ["/xx/xxx/xxx", "/xx/xxx/xxx", "/xx/xxx/xxx", "/xx/xxx/xxx", "/xx/xxx/xxx", "/xx/xxx/xxx"]
+        let pathItems = [filePath, filePath, filePath, filePath, filePath, filePath]
         var models = Array<PlayModel>()
+        let parser = PlayFileParser()
+        let image = parser.iconOfVideo(filePath: filePath)
+        let name = parser.nameOfVideo(filePath: filePath)
         for index in 0...(nameItems.count - 1) {
-            let model = PlayModel.init(name: nameItems[index], size: sizeItems[index], time: timeItems[index], path: pathItems[index])
+            let model = PlayModel.init(name: name, size: sizeItems[index], time: timeItems[index], path: pathItems[index], icon: image)
             models.append(model)
         }
         return models
@@ -77,4 +84,5 @@ class PlayListViewController: UIViewController, UITableViewDelegate, UITableView
         playVC.initModel(model as! PlayModel)
         self.navigationController?.pushViewController(playVC, animated: true)
     }
+    
 }

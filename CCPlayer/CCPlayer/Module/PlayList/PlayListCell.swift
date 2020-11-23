@@ -59,6 +59,7 @@ class PlayListCell: UITableViewCell {
     }()
     
     func setModel(model:PlayModel) {
+        self.snapImageView.image = model.icon
         self.nameLabel.text = model.name
         self.sizeLabel.text = model.size
         self.timeLabel.text = model.time
