@@ -95,6 +95,10 @@ class PlayListViewController: UIViewController, UITableViewDelegate, UITableView
         let playVC = PlayerViewController()
         playVC.initModel(model as! PlayModel)
         self.navigationController?.pushViewController(playVC, animated: true)
+        playVC.hidesBottomBarWhenPushed = true
+        self.navigationController?.hidesBottomBarWhenPushed = true
     }
+    
+    
     
 }

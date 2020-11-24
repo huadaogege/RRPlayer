@@ -51,7 +51,8 @@ class PlayFileParser: NSObject {
     
     func sizeOfVideo(filePath:String) -> String {
         var fileSize : UInt64 = 0
-                 
+        var unit = "GB"
+        var size:Float = 0.0
         do {
             let attr = try FileManager.default.attributesOfItem(atPath: filePath)
             fileSize = attr[FileAttributeKey.size] as! UInt64
@@ -59,11 +60,19 @@ class PlayFileParser: NSObject {
             let dict = attr as NSDictionary
             fileSize = dict.fileSize()
             
-            
+            if fileSize/(1000*1000*1000) >= 1 {
+                unit = "GB"
+                size = Float(Int(fileSize)/(1000*1000*Int(1000)))
+            } else if fileSize/(1000*1000) >= 1 {
+                unit = "MB"
+                size = Float(Double(fileSize)/(1000*1000.0))
+            } else {
+                unit = "KB"
+                size = Float(Double(fileSize)/1000)
+            }
         } catch {
             print("Error: \(error)")
         }
-        
-        return ""
+        return String(format: "%.2f", size) + unit
     }
 }

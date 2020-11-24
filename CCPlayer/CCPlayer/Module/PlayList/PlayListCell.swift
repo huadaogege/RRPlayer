@@ -36,7 +36,6 @@ class PlayListCell: UITableViewCell {
     
     lazy var nameLabel = {() -> UILabel in
         var nameLabel = UILabel.init(frame:CGRect(x: 155, y: 20, width: 100, height: 25))
-        nameLabel.backgroundColor = UIColor.yellow
         nameLabel.text = "视频名字"
         nameLabel.font = UIFont.systemFont(ofSize: 13)
         return nameLabel
@@ -44,7 +43,6 @@ class PlayListCell: UITableViewCell {
     
     lazy var sizeLabel = {() -> UILabel in
         var sizeLabel = UILabel.init(frame:CGRect(x: 155, y: 60, width: 100, height: 15))
-        sizeLabel.backgroundColor = UIColor.yellow
         sizeLabel.text = "1.5GB"
         sizeLabel.font = UIFont.systemFont(ofSize: 12)
         return sizeLabel
@@ -52,7 +50,6 @@ class PlayListCell: UITableViewCell {
     
     lazy var timeLabel = {() -> UILabel in
         var timeLabel = UILabel.init(frame: CGRect(x: 155, y: 85, width: 120, height: 15))
-        timeLabel.backgroundColor = UIColor.green
         timeLabel.text = "00:00:00 - 01:30:00"
         timeLabel.font = UIFont.systemFont(ofSize: 11)
         return timeLabel
