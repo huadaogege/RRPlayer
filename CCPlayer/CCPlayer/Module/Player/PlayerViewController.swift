@@ -46,6 +46,7 @@ class PlayerViewController: UIViewController {
         self.playerLayer.videoGravity = .resizeAspect
         self.playerLayer.frame = CGRect(x: 0, y: 0, width: superView.frame.size.width, height: superView.frame.size.height)
         superView.layer.addSublayer(self.playerLayer)
+        
     }
     
 }

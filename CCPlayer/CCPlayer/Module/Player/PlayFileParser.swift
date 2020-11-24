@@ -33,4 +33,37 @@ class PlayFileParser: NSObject {
         let name = url.pathExtension
         return name
     }
+    
+    func totalTimeOfVideo(filePath:String) -> String {
+        let url = URL(fileURLWithPath: filePath)
+        let playItem = AVPlayerItem(url: url as URL)
+        let totalTime:Int = Int(CMTimeGetSeconds(playItem.asset.duration))
+        
+        var h = String(totalTime/(60*60))
+        h = (h.count == 1) ? ("0" + h) : h
+        var m = String((totalTime%(60*60))/60)
+        m = (m.count == 1) ? ("0" + m) : m
+        var s = String(totalTime%(60))
+        s = (s.count == 1) ? ("0" + s) : s
+        let time = h + ":" + m + ":" + s
+        return time
+    }
+    
+    func sizeOfVideo(filePath:String) -> String {
+        var fileSize : UInt64 = 0
+                 
+        do {
+            let attr = try FileManager.default.attributesOfItem(atPath: filePath)
+            fileSize = attr[FileAttributeKey.size] as! UInt64
+             
+            let dict = attr as NSDictionary
+            fileSize = dict.fileSize()
+            
+            
+        } catch {
+            print("Error: \(error)")
+        }
+        
+        return ""
+    }
 }
