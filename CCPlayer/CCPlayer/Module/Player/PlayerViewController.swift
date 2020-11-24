@@ -23,7 +23,12 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
         initView()
+    }
+    
+    override var shouldAutorotate:Bool {
+        return false
     }
     
     func initView() {
@@ -43,10 +48,12 @@ class PlayerViewController: UIViewController {
         
         self.playerLayer = AVPlayerLayer.init(player: self.player)
         self.playerLayer.backgroundColor = UIColor.red.cgColor
-        self.playerLayer.videoGravity = .resizeAspect
-        self.playerLayer.frame = CGRect(x: 0, y: 0, width: superView.frame.size.width, height: superView.frame.size.height)
+        self.playerLayer.videoGravity = .resizeAspectFill
+        self.playerLayer.frame = CGRect(x: 0,
+                                        y: 0,
+                                        width: superView.frame.size.height,
+                                        height: superView.frame.size.width)
         superView.layer.addSublayer(self.playerLayer)
-        
     }
     
 }
