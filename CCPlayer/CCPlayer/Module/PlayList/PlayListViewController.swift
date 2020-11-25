@@ -24,6 +24,7 @@ class PlayListViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.hidesBottomBarWhenPushed = true
         UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
     
@@ -33,20 +34,22 @@ class PlayListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func testData() -> Array<PlayModel> {
         let docPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last! as String
-        let filePath = docPath + "/123.mp4"
+        let filePath = docPath + "123.mp4"
         
-        let nameItems = ["黑客帝国", "007大战皇家赌场", "加勒比海盗", "碟中谍", "盗梦空间", "无耻混蛋"]
-        let pathItems = [filePath, filePath, filePath, filePath, filePath, filePath]
+        let fileManager = CFileManager()
+        let pathItems = fileManager.searchDocumentsPaths()
+        
         var models = Array<PlayModel>()
         let parser = PlayFileParser()
-        let image = parser.iconOfVideo(filePath: filePath)
-        let name = parser.nameOfVideo(filePath: filePath)
-        let time = parser.totalTimeOfVideo(filePath: filePath)
-        let size = parser.sizeOfVideo(filePath: filePath)
         
-        
-        for index in 0...(nameItems.count - 1) {
-            let model = PlayModel.init(name: name, size: size, time: time, path: pathItems[index], icon: image)
+        for index in 0...(pathItems.count - 1) {
+            let filePath = pathItems[index] as! String
+            let image = parser.iconOfVideo(filePath: filePath)
+            let name = parser.nameOfVideo(filePath: filePath)
+            let time = parser.totalTimeOfVideo(filePath: filePath)
+            let size = parser.sizeOfVideo(filePath: filePath)
+            
+            let model = PlayModel.init(name: name, size: size, time: time, path:filePath , icon: image)
             models.append(model)
         }
         return models
@@ -94,9 +97,9 @@ class PlayListViewController: UIViewController, UITableViewDelegate, UITableView
         let model = self.dataItems[indexPath.row]
         let playVC = PlayerViewController()
         playVC.initModel(model as! PlayModel)
+        self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(playVC, animated: true)
-        playVC.hidesBottomBarWhenPushed = true
-        self.navigationController?.hidesBottomBarWhenPushed = true
+        self.hidesBottomBarWhenPushed = false
     }
     
     
