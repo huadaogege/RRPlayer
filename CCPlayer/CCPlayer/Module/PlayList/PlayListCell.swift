@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 class PlayListCell: UITableViewCell {
+    
+    var screenObject = UIScreen.main.bounds
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initView()
@@ -23,6 +26,7 @@ class PlayListCell: UITableViewCell {
         self.addSubview(self.nameLabel)
         self.addSubview(self.sizeLabel)
         self.addSubview(self.timeLabel)
+        self.contentView.addSubview(self.editButton)
     }
     
     lazy var snapImageView = {() -> UIImageView in
@@ -54,6 +58,28 @@ class PlayListCell: UITableViewCell {
         timeLabel.font = UIFont.systemFont(ofSize: 11)
         return timeLabel
     }()
+    
+    lazy var editButton = {() -> UIButton in
+        var editButton = UIButton.init(frame: CGRect(x: screenObject.width - 60, y: self.center.y, width: 50, height: 30))
+        editButton.backgroundColor = UIColor.gray
+        editButton.addTarget(self, action: #selector(showEditView), for: .touchUpInside)
+        return editButton
+    }()
+    
+    @objc func showEditView() {
+        let editView = UIView.init(frame: CGRect(x: screenObject.width - 100, y: 0, width: 90, height: 80))
+        editView.backgroundColor = UIColor.red
+        self.contentView.addSubview(editView)
+        
+        let titles = ["加密", "删除"]
+        
+        for index in 0 ... 1 {
+            let button = UIButton.init(frame: CGRect(x: 0, y: index*40, width: 90, height: 40))
+            button.setTitle(titles[index], for: .normal)
+            editView.addSubview(button)
+        }
+        
+    }
     
     func setModel(model:PlayModel) {
         self.snapImageView.image = model.icon
