@@ -26,7 +26,7 @@ class CFileManager: NSObject {
         let contentsOfPath:Array<String> = try! manager.contentsOfDirectory(atPath: url.path)
 
         for fileName in contentsOfPath {
-            let path = url.path + fileName
+            let path = url.path + "/" + fileName
             paths.append(path)
         }
         return paths

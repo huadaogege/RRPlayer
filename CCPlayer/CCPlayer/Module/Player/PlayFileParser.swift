@@ -30,7 +30,7 @@ class PlayFileParser: NSObject {
     
     func nameOfVideo(filePath:String) -> String {
         let url:URL = URL(fileURLWithPath: filePath)
-        let name = url.pathExtension
+        let name = url.lastPathComponent
         return name
     }
     
@@ -39,13 +39,6 @@ class PlayFileParser: NSObject {
         let playItem = AVPlayerItem(url: url as URL)
         let totalTime:Int = Int(CMTimeGetSeconds(playItem.asset.duration))
         
-//        var h = String(totalTime/(60*60))
-//        h = (h.count == 1) ? ("0" + h) : h
-//        var m = String((totalTime%(60*60))/60)
-//        m = (m.count == 1) ? ("0" + m) : m
-//        var s = String(totalTime%(60))
-//        s = (s.count == 1) ? ("0" + s) : s
-//        let time = h + ":" + m + ":" + s
         let time = String(format: "%02d:%02d:%02d",(Int(totalTime) % 3600) / 60, Int(totalTime) / 3600,Int(totalTime) % 60)
         return time
     }

@@ -130,10 +130,6 @@ class PlayerViewController: UIViewController {
                                         height: superView.frame.size.width)
         superView.layer.addSublayer(self.playerLayer)
         
-//        playItem.addObserver(self, forKeyPath: "status", options: .new, context: nil)
-//        playItem.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: nil)
-//        playItem.addObserver(self, forKeyPath: "playbackBufferEmpty", options: .new, context: nil)
-//        playItem.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: .new, context: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playToEndTime), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
 
         self.player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 1), queue: DispatchQueue.main) { [weak self](time) in

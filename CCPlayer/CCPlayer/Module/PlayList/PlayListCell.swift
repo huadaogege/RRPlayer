@@ -35,7 +35,7 @@ class PlayListCell: UITableViewCell {
     }()
     
     lazy var nameLabel = {() -> UILabel in
-        var nameLabel = UILabel.init(frame:CGRect(x: 155, y: 20, width: 100, height: 25))
+        var nameLabel = UILabel.init(frame:CGRect(x: 155, y: 20, width: 180, height: 25))
         nameLabel.text = "视频名字"
         nameLabel.font = UIFont.systemFont(ofSize: 13)
         return nameLabel

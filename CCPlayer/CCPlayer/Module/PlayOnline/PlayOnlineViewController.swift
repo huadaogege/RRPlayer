@@ -47,5 +47,11 @@ class PlayOnlineViewController: UIViewController {
     
     @objc func searchButtonClick() {
         self.searchTextField.resignFirstResponder()
+        let model = PlayModel.init(name: "", size: "", time: "在线播放", path: "", icon: UIImage.init())
+        let playVC = PlayerViewController()
+        playVC.initModel(model)
+        self.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(playVC, animated: true)
+        self.hidesBottomBarWhenPushed = false
     }
 }

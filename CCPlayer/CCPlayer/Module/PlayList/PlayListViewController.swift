@@ -26,18 +26,25 @@ class PlayListViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewWillAppear(animated)
         self.hidesBottomBarWhenPushed = true
         UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        
+        let leftButton = UIBarButtonItem(title: "编辑", style: UIBarButtonItem.Style.plain, target: self, action: #selector(editPlayList))
+            self.navigationItem.rightBarButtonItem = leftButton
     }
     
     override var shouldAutorotate:Bool {
         return true
     }
     
+    @objc func editPlayList() {
+        self.tableView.isEditing = !self.tableView.isEditing
+    }
+    
     func testData() -> Array<PlayModel> {
-        let docPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last! as String
-        let filePath = docPath + "123.mp4"
-        
         let fileManager = CFileManager()
         let pathItems = fileManager.searchDocumentsPaths()
+        if pathItems.count == 0 {
+            return Array.init()
+        }
         
         var models = Array<PlayModel>()
         let parser = PlayFileParser()
@@ -102,6 +109,25 @@ class PlayListViewController: UIViewController, UITableViewDelegate, UITableView
         self.hidesBottomBarWhenPushed = false
     }
     
-    
+    private func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell.EditingStyle {
+            if indexPath.row == self.dataItems.count - 1
+            {
+                // 最后一个时插入
+                return UITableViewCell.EditingStyle.insert
+            }
+            else if indexPath.row == 0
+            {
+                // 第一个没有编辑模式
+                return UITableViewCell.EditingStyle.none
+            }
+            
+            // 其他cell为删除的编辑模式（设置tableView的editing属性进行删除操作；或左滑cell进行删除操作）
+        return UITableViewCell.EditingStyle.delete
+    }
+
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+            
+        
+    }
     
 }
