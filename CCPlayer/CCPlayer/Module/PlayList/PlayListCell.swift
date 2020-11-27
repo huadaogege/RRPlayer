@@ -76,6 +76,7 @@ class PlayListCell: UITableViewCell {
         for index in 0 ... 1 {
             let button = UIButton.init(frame: CGRect(x: 0, y: index*40, width: 90, height: 40))
             button.setTitle(titles[index], for: .normal)
+            button.setImage(UIImage.init(named: ""), for: .normal)
             editView.addSubview(button)
         }
         
